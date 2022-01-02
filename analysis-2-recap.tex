@@ -11,9 +11,11 @@
 \usepackage{todonotes}
 \usepackage{xstring}
 \usepackage{catchfile}
+% \usepackage{layout}
 
 \setlength{\columnsep}{1cm}
 \setlength{\columnseprule}{0.2pt}
+\setlength{\parskip}{0em}
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -23,11 +25,6 @@
 \DeclareMathOperator{\acosh}{acosh}
 \DeclareMathOperator{\asinh}{asinh}
 \DeclareMathOperator{\atanh}{atanh}
-
-% Math column
-\newcolumntype{M}{>{$\displaystyle}c<{$}}
-\newcolumntype{L}{>{$\displaystyle}l<{$}}
-\newcolumntype{R}{>{$\displaystyle}r<{$}}
 
 \newtheorem{innercustomgeneric}{\customgenericname}
 \providecommand{\customgenericname}{}
@@ -46,8 +43,10 @@
 \newcustomtheorem{lemma}{Lemma}
 
 \newcustomtheorem{theorem}{Theorem}
+\newcustomtheorem{example}{Example}
 
 \newcustomtheorem{corollary}{Corollary}
+\newcustomtheorem{proposition}{Proposition}
 
 \newcommand{\seq}[1]{\left( #1_n \right)_{n \ge 1}}
 
@@ -66,11 +65,180 @@
 \date{\today \hfill \texttt{\branch}, \texttt{\commit}}
 
 \begin{document}
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+\belowdisplayskip=0pt
+\belowdisplayshortskip=0pt
 \maketitle
 
-\section{Start}
+\section{Linear differential equations}
+\begin{definition}
+    Linear Differential equation. Homogeneous if  $b = 0$, inhomogeneous otherwise.
+    \[ y^{(k)} + a_{k-1} y^{(k-1)} + ... + a_1 y' + a_0 y = b \]
+\end{definition}
+
+\begin{theorem}{2.2.3}
+    \dots $y$ is $k$-times differentiable \dots
+
+    For the homogeneous equation, given a choice of $x_0$ and $(y_0, ..., y_{k-1})$
+    there's a unique solution $f \in \mathcal{S}$ such that
+    \begin{equation}\label{huifwegew4aTR} f(x_0) = y_0,\ f'(x_0) = y_1,\ \dots,\ f^{(k-1)}(x_0) = y_{k-1}  \end{equation}
+
+    For the inhomogeneous equation with a $b$ continous on the interval, the set of solutions $\mathcal{S}_b$
+    is the set of functions $f + f_0$ where $f \in \mathcal{S}$. Again, for any $x_0$ and $(y_0, ..., y_{k-1})$
+    there's a unique solution such that (\ref{huifwegew4aTR}).
+
+    If $b \ne 0$ then $\mathcal{S}_b$ is not a vector space.
+\end{theorem}
+
+\begin{proposition}{2.3.1}
+    Any solution of $y' + ay = 0$ is in the form $f(x) = z e^{-A(x)}$, where $A$ is a primitive of $a$ and $z \in \C$.
+    Unique solution is $f(x) = y_0 e^{A(x_0) - A(x)}$
+\end{proposition}
+
+To solve the inhomogeneous equation $y' + ay = b$, the prev solution is used.
+Using \textit{Variation of the constant} we replace $z$ with $z(x)$ and then
+$y' + ay = b \Leftrightarrow z'(x) = b(x)\ e^{A(x)}$ and $f_0(x) = C(x) e^{-A(x)}$, where
+$C(x)$ is a primitive of $z'(x)$.
+
+\subsection{Constant coefficients}
+\begin{definition}
+    Let $a_0, ..., a_{k-1} \in \C$. Linear differentian equation $y^{(k)} + a_{k-1}y^{(k-1)} + ... + a_1y' + a_0y = b$.
+    Homogeneous solution is in the form $f(x) = e^{\alpha x},\ \alpha \in \C$. We have $f^{(j)}(x) = \alpha^j e^{\alpha x}$ for all $j \ge 0$ and $x$.
+
+    Conclusion: $f(x)$ is a solution iff $P(\alpha) = 0$, where $P(X) = X^k + a_{k-1}X^{k-1} + ... + a_1X + a_0$.
+
+    This polynomial of degree $k$ has $k$ roots (counted with multiplicity). There exist complex numbers $\alpha_1, ..., \alpha_k$
+    such that $P(X) = (X - \alpha_1)...(X - \alpha_k)$. This is the \textit{companion} or \textit{characteristic polynomial} of the
+    homogeneous diff. equation.
+\end{definition}
+
+\begin{itemize}
+    \item No multiple roots
+          When $\alpha_i \ne \alpha_j$ for all $i, j$.
+
+          Solution of the homogeneous equation ($b = 0$): form $f(x) = z_1 e^{\alpha_1 x} + ... + z_k e^{\alpha_k x}$.
+          Unique solution with $f(x_0) = y_0,\ ...,\ f^{(k-1)}(x_0) = y_{k-1}$ can be obtained by viewing $z_i$ as unknowns. Substitute $x = x_0$ in
+          the formula for $f$ and solve for $z_1, ..., z_k$ (linear system).
+
+    \item Multiple roots
+          Assume $\alpha$ is a multiple root of order $j$ of the polynomial $P$, with $2 \le j \le k$. Then
+          \[ f_{\alpha,0}(x) = e^{\alpha x},\ f_{\alpha,1}(x) = x e^{\alpha x},\ ...,\ f_{\alpha,j-1}(x) = x^{j-1} e^{\alpha x} \]
+          are linearly independent and are solutions of the h.l.d.e.
+
+          \begin{example}
+              Suppose $P(X) = X(X - 4)^3(X - (1+i))(X - (1 - i))$, then the solutions are
+              $f_0(x) = 1$ (sol. for $X=0$), $f_1(x) = e^{4x}$, $f_2(x) = xe^{4x}$, $f_3(x) = x^2 e^{4x}$,
+              $f_4(x) = e^{(1+i) x}$, $f_5(x) = e^{(1-i) x}$
+          \end{example}
+
+\end{itemize}
+
+Now the inhomogeneous equation ($b \ne 0$):
+
+Should avoid variation of the constants. Can use special cases:
+\begin{enumerate}
+    \item $b(x) = x^d e^{\beta x}$ for some integer $d =ge 0$ and an item $\beta$ which is NOT a root of $P$, then
+          the solution is of the form $f(x) = Q(x) e^{\beta x}$, where $Q$ is a polynomial of degree $d$.
+    \item $b(x) = x^d \cos(\beta x)$ or $b(x) = x^d \sin(\beta x)$ for some integer $d \ge 0$ and $\beta$ is NOT a root of $P$, then
+          one can transform it to a combination of complex exponentials or look for a solution of the form
+          $f(x) = Q_1(x) \cos(\beta x) + Q_2(x) \sin(\beta x)$, $Q_1, Q_2$ have degree $d$.
+    \item $b(x)$ is in the form of the previous two but IS a root of multiplicity $j$, then one looks for $f(x) = Q(x) e^{\beta x} $,
+          with $Q$ of degree $q + j$.
+    \item Special case $\beta = 0$ of the previous 3 ($b$ polynomial of degree $d \ge 0$): if $0$ is NOT a root, look for a
+          solution $f$ (polynomial) of deg $d$, or degree $d + j$ if $0$ IS a root, where $j$ is the multiplicity of $0$.
+\end{enumerate}
+
+\subsection{Variation of the constants for degree ge 2}
+
+Does not require the coefficients to be constants, but it makes it easier.
+
+Inhomogeneous equation \[ y^{(k)} + a_{k-1} y^{(k - 1)} + ... + a_1 y' + a_0 y = b \]
+Solutions $f_1, ..., f_k$ for the homogeneous equations must be found first.
+
+We then search for a solution of the form $f(x) = z_1(x) f_1(x) + ... + z_k(x) f_k(x)$, such that we have (for all $x$):
+\[
+    \begin{cases}
+        z_1'(x) f_1(x) + ... + z_k'(x) f_k(x) = 0   \\
+        z_1'(x) f_1'(x) + ... + z_k'(x) f_k'(x) = 0 \\
+        ...                                         \\
+        z_1'(x) f_1^{(k-2)}(x) + ... + z_k'(x) f_k^{(k-2)}(x) = 0
+    \end{cases}
+\]
+
+\begin{example}
+    Case $k = 2$: Write again $f = z_1 f_1 + z_2 f_2$ and the constraint $z_1' f_1 + z_2' f_2 = 0$.
+\end{example}
+
+\begin{definition}{3.3.5}
+    $f: X \mapsto \R $ has a partial derivative with respect to the $i$-th variable if the function
+    \[ g(t) = f(x_{0,1}, ..., x_{0,i-1}, t, x_{0,i+1}, ..., x_{0,n}) \]
+    is differentiable for all $x_0 \in X$ on the set $I = \left\{ t \in \R \mid (x_{0,1}, ..., x_{0,i-1}, t, x_{0,i+1}, ..., x_{0,n}) \in X \right\}$.
+
+    Its derivative $g'(x_{0,i})$ is denoted
+    \[ \frac{\partial f}{\partial x_i}(x_0),\ \partial_{x_i}(x_0),\ \partial_i (x_0) \]
+\end{definition}
+
+\begin{proposition}{3.3.7}
+    $x \subset \R^n$ open, $f,g$ functions from $X$ to $\R^m$. Let $1 \le 1 \le n$.
+    \begin{enumerate}
+        \item if $f, g$ have partial derivatives of $i$-th coordinate on $X$, then $f + g$ also does.
+              $\partial_{x_i}(f + g) = \partial_{x_i}(f) + \partial_{x_i}(g)$
+        \item if the previous is true and $m = 1$, then $fg$ also does and $\partial_{x_i}(f g) = \partial_{x_i}(f) \cdot g + f \cdot \partial_{x_i}(g)$
+        \item If the previous is true and $g(x) \ne 0$ for all $x \in X$, then $f / g$ has a partial derivative
+              $\partial_{x_i}(f/g) = \left (\partial_{x_i}(f)g - f \partial_{x_i}(g) \right)/g^2$
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}{3.3.9}
+    $f: X \mapsto \R^m$ has partial derivatives on $X$. Write $f(x) = (f_1(x), f_2(x), ..., f_m(x))$.
+
+    For any $x \in X$, the \textbf{Jacobi Matrix} ($m$ rows, $n$ columns) of $f$ at $x$ is defined as
+    \[ J_f(x) = (\partial_{x_i} f_i(x))_{\stackrel{1 \le i \le m}{1 \le j \le n}} \]
+\end{definition}
+
+\begin{definition}{3.3.11}
+    \begin{enumerate}
+        \item If all partial derivatives of $f: X \mapsto \R$ exist at $x_0 \in X$, then the column vector
+              \[ \nabla f(x_0) = \begin{pmatrix}
+                      \partial_{x_1} f(x_0) \\
+                      ...                   \\
+                      \partial_{x_n} f(x_0)
+                  \end{pmatrix} \]
+              is called the \textbf{gradient} of $f$ at $x_0$.
+        \item Let $f = (f_1, f_2, ..., f_n): X \mapsto \R^n$ and all partial derivatives of all coordinates $f_i$ of $f$ exist at $x_0 \in X$. Then
+              \[ Tr(J_f(x_0)) = \sum_{i=1}^{n} \partial_{x_i} f_i(x_0) \]
+              is the \textit{trace} of the Jacobi Matrix and is called the \textbf{divergence} of $f$ at $x_0$, also $div(f)(x_0)$
+    \end{enumerate}
+
+\end{definition}
+
+\begin{definition}{3.4.2}
+    Let $X \subset \R^n$ be open and $f: X \mapsto \R^m$ be a function.
+    Let $u$ be a linear map $\R^n \mapsto \R^m$ and $x_0 \in X$. We say that $f$ is \textit{differentiable} at
+    $x_0$ with differential $u$ if
+    \[ \lim_{\stackrel{x \to x_0}{x \ne 0}} \frac{1}{\Vert x - x_0 \Vert}(f(x) - f(x_0) - u(x - x_0)) = 0 \]
+    We then denote $df(x_0) = u$. If it is differentiable at every $x_0 \in X$, then it is differentiable on $X$.
+
+    Then, close to $x_0$, we can approximate $f(x)$ by $g(x) = f(x_0) + u(x - x_0)$
+\end{definition}
+
+\begin{proposition}{3.4.4}
+    Let $X \subset \R^n$ be open and $f: X \mapsto \R^m$ be a function differentiable on $X$. Then
+    \begin{enumerate}
+        \item $f$ is \textbf{continuous} on $X$.
+        \item $f$ admits partial derivatives on $X$ with respect to each variable.
+        \item Assume that $m = 1$. Let $x_0 \in X$ and $u(x_1, ..., x_n) = a_1 x_1 + ... + a_n x_n$ be the differential of $f$ at $x_0$.
+              We then have $\partial_{x_i} f(x_0) = a_i$ for $1 \le i \le n$
+    \end{enumerate}
+\end{proposition}
 
 \section{Limit Cheat Sheet}
+% Math column
+\newcolumntype{M}{>{$\displaystyle}c<{$}}
+    \newcolumntype{L}{>{$\displaystyle}l<{$}}
+\newcolumntype{R}{>{$\displaystyle}r<{$}}
+
 \[ x \in \R,\quad a,b \in \R^+,\quad n \in \N \]
 {\renewcommand{\arraystretch}{1.4}
 \begin{tabular}{| M | M |}

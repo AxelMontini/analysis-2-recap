@@ -233,6 +233,146 @@ We then search for a solution of the form $f(x) = z_1(x) f_1(x) + ... + z_k(x) f
     \end{enumerate}
 \end{proposition}
 
+\begin{proposition}{3.4.6}
+    $X \subset R^n$ open, $f: x \mapsto R^m$, $g: X \mapsto R^m$ differentiable functions on $X$.
+    \begin{enumerate}
+        \item $f + g$ is differentiable on $X$ with differential $d(f + g) = df + df$.
+        \item If $m = 1$, then $fg$ is differentiable. If we also have $g(x) \ne 0$ for all
+              $x \in X$, then $f/g$ is differentiable.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}{3.4.7}
+    If $f$ has all partial derivatives on $X$ and they are all continuous on $X$, then $f$ is differentiable on $X$.
+    The matrix of the differential $df(x_0)$ is the Jacobi Matrix of $f$ at $x_0$.
+\end{proposition}
+
+\begin{proposition}{3.4.9 (Chain Rule)}
+    Let $X \subset \R^n$ and $Y \subset \R^m$ be open.
+    Let $f: X \mapsto Y$ and $g: Y \mapsto R^p$ be differentiable functions.
+    Then $g \circ f: X \mapsto \R^p$ is differentiable on $X$, and for any $x \in X$, its differential is given by
+    \[ d(g \circ f)(x_0) = dg(f(x_0)) \circ df(x_0) \]
+    The Jacobi Matrix satisfies
+    \[ J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)\ \mbox{(matrix product)}\]
+\end{proposition}
+
+
+\begin{definition}
+    Let $X \subset \R^n$ be open and $f: X \mapsto \R^m$ differentiable.
+    Let $x_0 \in X$ and $u = df(x_0)$ be the differential of $f$ at $x_0$. The graph of the affine linear approximation
+    \[ g(x) = f(x_0) + u(x - x_0) \]
+    from $\R^n$ to $\R^m$, or in other words the set
+    \[ \left\{ (x,y) \in \R^n \times \R^m \mid y = f(x_0) + u(x - x_0) \right\} \]
+    is called the \textbf{tangent space} at $x_0$ to the graph of $f$.
+\end{definition}
+
+\begin{definition}{3.4.13 (Directional Derivative)}
+    Let $X \subset \R^n$ be open, $f: X \mapsto \R^m$ a function.
+
+    Let $v \in \R^n$ be a non-zero vector and $x_0 \in X$.
+
+    We say that $f$ has \textbf{directional derivative} $w \in \R^m$ in the direction $v$
+    if the function $g$ defined on the set $I$ has a derivative at $t = 0$ and this is equal to $w$.
+    \[ g(t) = f(x_0 + tv), \quad I = \left\{ t \in \R \mid x_0 + tv \in R \right\} \]
+
+    Other words: limit is equal to $w$
+    \[ \lim_{\stackrel{t \to 0}{t \ne 0}} \frac{f(x_0 + tv) - f(x_0)}{t} \]
+\end{definition}
+
+\begin{proposition}{3.4.15}
+    $X$ open, $f$ differentiable. Then for any $x_0 \in X$ and non-zero $v$, the function has
+    a directional derivative at $x_0$ in the direction $v$, equal to $df(x_0)(v)$
+\end{proposition}
+
+\begin{definition}{3.5.1}
+    Let $X \subset \R^n$ be open and $f: X \mapsto \R^m$.
+    We say that $f$ is of class:
+    \begin{itemize}
+        \item $C^1$ is differentiable on $X$ and all partial derivatives are continuous.
+        \item $C^k$ if differentiable on $X$ and all partial derivatives $\partial_{x_i}f: X \mapsto \R^m$ are of class $C^{k-1}$.
+        \item $C^\infty$ if $f \in C^k(X;\R^m)$ for all $k \ge 1$
+    \end{itemize}
+    Set of functions of class $C^k$ from $X$ to $\R^m$ is denoted $C^k(X; \R^m)$
+\end{definition}
+
+\begin{proposition}{3.5.4 (Mixed derivatives commute)}
+    $X \subset \R^n$ open and $f: X \mapsto \R^m$ of class $C^k$. Then the partial derivatives
+    of order $k$ are independent of the order in which the partial derivatives are taken: for any variables
+    $x_1, x_2, ..., x_n$ we have
+    \[ \partial_{x_1, x_2, ..., x_n}f = \partial_{x_2, x_1, ..., x_n}f = ...   \ \mbox{(all combinations)}\]
+\end{proposition}
+
+\begin{definition}{3.5.9 (Hessian)}
+    Let $X \subset \R^n$ be open and $f: X \mapsto \R$ a $C^2$ function.
+    For $x \in X$, the \textbf{Hessian matrix} of $f$ at $x$ is the \textbf{symmetrix square} matrix
+    \[ \mathit{H}_f(x) = \mathrm{Hess}_f(x) = (\partial_{x_i, x_j}f)_{1 \le i, j \le n} \]
+\end{definition}
+
+\begin{example}{(Change of variable)}
+    Idea: create $h$, which is $f$ on a different coordinate system.
+
+    Open set $U \subset \R^n$ containing the new variables $(y_1, ..., y_n)$ and a change of variable $g: U \mapsto X$
+    that expresses $(x_1, ..., x_n)$ in terms of $(y_1, ..., y_n)$.
+
+    Consider $x_1 = g_1(y_0, ..., y_n),\quad x_n = g_n(y_1, ..., y_n)$
+
+    Composite $h = f \circ g: U \mapsto \R$ is the function $f$ expressed in terms of the new variables $y$.
+
+    Polar coordinates: Map $g: U \mapsto \R^2,\ g(r, \theta) = (r \cos \theta, r \sin \theta)$.
+    Replace $f$ by $h$: $h(r, \theta) = f(r \cos \theta, r \sin \theta)$.
+    \[ J_g(r, \theta) = \begin{pmatrix}
+            \cos \theta & - r \sin \theta \\
+            \sin \theta & r \cos \theta
+        \end{pmatrix} \]
+\end{example}
+
+\subsection{Taylor Polynomials}
+\begin{definition}{3.7.1 (Taylor polynomials)}
+    Let $k \ge 1$ be an integer, $f: X \mapsto \R$ a function of class $C^k$ on $X$, and fix $x_0 \in X$. The
+    $k$-th Taylor polynomial of $f$ at point $x_0$ is the poly in $n$ variables of degree $\le k$ given by
+    \begin{align*}
+        T_k f(y;x_0) = & f(x_0) + \sum_{i=1}^n \frac{\partial f}{\partial x_i}(x_0)y_i + ...                                                                          \\
+                       & + \sum_{m_1 + ... + m_n = k} \frac{1}{m_1!...m_n!} \frac{\partial^k f}{\partial x_1^{m_1} ... \partial x_n^{m_n}} (x_0)y_1^{m_1}...y_n^{m_n}
+    \end{align*}
+    where the last sum ranges over the tuples of $n$ positive integers such that the sum is $k$.
+
+    Case $n=1$ (one variable):
+    \[ T_k f(y; x_0) = f(x_0) + f'(x_0)y + \frac{f''(x_0)}{2}y^2 + ... + \frac{f^{(k)}(x_0)}{k!}y^k \]
+\end{definition}
+
+\begin{proposition}{3.7.3 (Taylor Approximation)}
+    $k \ge 1$, $X \subset \R^n$ open, $f: X \mapsto \R$ a $C^k$ function. For $x_0$ in $X$, we define $E_k f(x;x_0)$ by
+    \[ f(x) = T_k f(x - x_0;x_0) + E_k f(x;x_0) \]
+    then we have
+    \[ \lim_{\stackrel{x \to x_0}{x \ne x_0}} \frac{e_k f(x;x_0)}{\Vert x - x_0 \Vert^k} = 0 \]
+\end{proposition}
+
+
+\subsection{Critical Points}
+\begin{proposition}{3.8.1}
+    Let $X \subset \R^n$ be open and $f: X \mapsto \R$ be differentiable.
+    If $x_0 \in X$ is a local maximum or a local minimum, then we have (equivalent) for $1 \le i \le n$:
+    \[ df(x_0) = 0,\ \nabla f(x_0) = 0,\ \frac{\partial f}{\partial x_i}(x_0) = 0 \]
+\end{proposition}
+
+\begin{definition}{3.8.2 (Critical Point)}
+    Let $X$ be open and $f$ be differentiable.
+    A point $x_0$ is called a \textbf{critical point} of $f$ if $\nabla f(x_0) = 0$.
+\end{definition}
+
+\begin{definition}{3.8.6 (Non-degenerate critical point)}
+    $f$ of class $C^2$. A critical point $x_0$ is \textbf{non-degenerate} if the Hessian matrix has non-zero determinant.
+\end{definition}
+
+\begin{corollary}{3.8.7}
+    $X$ open and $f: X \mapsto \R$ of class $C^2$. Let $x_0$ be a non-degenerate critical point of $f$. Let $p, q$ be the number of positive and negative eigenvalues of $Hess_f (x_0)$
+    \begin{enumerate}
+        \item if $p = n$, equivalently if $q = 0$, the function $f$ has a local minimum at $x_0$.
+        \item if $q = n$, equivalently if $p = 0$, $f$ has a local maximum at $x_0$.
+        \item Otherwise, the function $f$ does not have a local extremum at $x_0$, equivalently it has a saddle point at $x_0$.
+    \end{enumerate}
+\end{corollary}
+
 \section{Limit Cheat Sheet}
 % Math column
 \newcolumntype{M}{>{$\displaystyle}c<{$}}

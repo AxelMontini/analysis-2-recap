@@ -30,7 +30,7 @@ jobs:
           root_file: analysis-2-recap.tex
       - name: Copy artifact to folder
         run: |
-          mkdir pages && cp analysis-1-recap.pdf pages
+          mkdir pages && cp analysis-2-recap.pdf pages
           echo '<meta http-equiv="refresh" content="0; url=https://axelmontini.github.io/analysis-2-recap/analysis-2-recap.pdf">' > pages/index.html
       - uses: actions/upload-artifact@v2
         with:

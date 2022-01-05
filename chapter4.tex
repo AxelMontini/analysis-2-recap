@@ -1,0 +1,74 @@
+\subsection{Line integrals}
+\begin{definition}{4.1.1}
+    Uses scalar product in $\R^n$.
+
+    \begin{enumerate}
+        \item Let $I = [a,b]$ be a closed and bounded interval in $\R$. Let $f(t) = (f_1(t), f_2(t), ..., f_n(t))$
+              be continuous ($f_i$ is continuous). Then we define
+              \[ \int_a^b f(t) dt = \left( \int_a^b f_1(t) dt, ..., \int_a^b f_n(t) dt \right) \]
+        \item A \textbf{parametrized curve} in $\R^n$ is a continuous map $\gamma: [a,b] \mapsto \R^n$ that is piecewise $C^1$, i.e,
+              there's $k \ge 1$ and a partition
+              \[ a = t_0 < t_1 < ... < t_{k-1} < t_k = b \]
+              such that the restriction of $f$ to $]t_{j-1}, t_j[$ is $C^1$ for $1 \le j \le k$. Then we say that $\gamma$ is a parametrized
+              curve, or \textit{path}x, between $\gamma(a)$ and $\gamma(b)$.
+        \item Let $gamma: [a,b] \mapsto \R^n$ be a parametrized curve. Let $X \subset \R^n$ be a subset containing the image of $\gamma$.
+              Let $g: X \mapsto \R^n$ be a continuous function. Then the integral
+              \[ \int_a^b g(\gamma(t))\gamma'(t) dt\ \in \R \]
+              is called the \textbf{line integral} of $g$ along $\gamma$. Denoted
+              \[ \int_\gamma g(s)\cdot ds \quad \mbox{or} \quad \int_\gamma g(s) \cdot d\vec{s}\]
+    \end{enumerate}
+\end{definition}
+
+When working with line integrals, we say that $f: X \mapsto \R^n$ is a \textbf{vector field}.
+
+\begin{proposition}{idk}
+    This integral  of continuous functions $I \mapsto \R^n$ (one variable) satisfies
+    \[ \int_a^b (f(t) + g(t))dt = \int_a^b f(t) dt + \int_a^b g(t)dt \]
+    and
+    \[ \int_a^b f(t)dt = - \int_b^a f(t)dt \]
+\end{proposition}
+
+\begin{definition}{4.1.4}
+    Let $gamma: [a,b] \mapsto \R^n$ be a parametrized curve. An \textbf{oriented reparametrization} of $\gamma$ is
+    a parametrized curve $\sigma: [c,d] \mapsto \R^n$ such that $\sigma = \gamma \circ \varphi$, differentiable on $]a,b[$, strictly
+    increasing and satisfies $\varphi(a) = c, \varphi(b) = d$, where $\varphi: [c,d] \mapsto [a,b]$ is a continuous map.
+\end{definition}
+
+\begin{proposition}{4.1.5}
+    Let $\gamma$ be a parametrized curve in $\R^n$, $\sigma$ an oriented reparametrization of $\gamma$.
+    Let $X$ be a set containing the image of $\gamma$ (or, equivalently, the image of $\sigma$),
+    and $f: X \mapsto \R^n$ a continuous function.
+
+    Then the line integrals are the same:
+    \[ \int_\gamma f(s) \cdot d \vec{s} = \int_\sigma f(s) \cdot d \vec{s} \]
+\end{proposition}
+
+\begin{definition}{4.1.8}
+    Let $X \subset \R^n$ and $f: X \mapsto \R^n$ a continuous vector field.
+
+    If for any $x_1, x_2 \in X$ the line integral is independent of the choice of $\gamma$ in $X$ from $x_1$ to $x_2$,
+    then we say that the vector field is \textbf{conservative}.
+\end{definition}
+
+\begin{remark}{4.1.9}
+    Equivalently, $f$ is conservative iff
+    \[ \int_\gamma f(s) \cdot d\vec{s} = 0 \]
+    for any \textbf{closed} parametrized curve $\gamma$ in $X$.
+    A curve is closed if $\gamma(a) = \gamma(b)$.
+\end{remark}
+
+\begin{theorem}{Hidden in the page (gratient vector conservative)}
+    If $X$ is open, then any vector field of the form $f = \nabla g$, where $g$ is of class $C^1$ on $X$, is conservative.
+\end{theorem}
+
+\begin{theorem}{4.1.10}
+    Let $X$ be open and $f$ a conservative vector field.
+    Then there exist a $C^1$ function $g$ on $X$ such that $f = \nabla g$.
+
+    If any two points on $X$ can be joined by a parametrized curve, then $g$ is unique up to addition of a constant:
+    if $\nabla g_1 = f$, then $g - g_1$ is constant on $X$.
+\end{theorem}
+
+\begin{remark}{4.1.11}
+    
+\end{remark}

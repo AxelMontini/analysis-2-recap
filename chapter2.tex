@@ -1,0 +1,97 @@
+\begin{definition}
+    Linear Differential equation. Homogeneous if  $b = 0$, inhomogeneous otherwise.
+    \[ y^{(k)} + a_{k-1} y^{(k-1)} + ... + a_1 y' + a_0 y = b \]
+\end{definition}
+
+\begin{theorem}{2.2.3}
+    \dots $y$ is $k$-times differentiable \dots
+
+    For the homogeneous equation, given a choice of $x_0$ and $(y_0, ..., y_{k-1})$
+    there's a unique solution $f \in \mathcal{S}$ such that
+    \begin{equation}\label{huifwegew4aTR} f(x_0) = y_0,\ f'(x_0) = y_1,\ \dots,\ f^{(k-1)}(x_0) = y_{k-1}  \end{equation}
+
+    For the inhomogeneous equation with a $b$ continous on the interval, the set of solutions $\mathcal{S}_b$
+    is the set of functions $f + f_0$ where $f \in \mathcal{S}$. Again, for any $x_0$ and $(y_0, ..., y_{k-1})$
+    there's a unique solution such that (\ref{huifwegew4aTR}).
+
+    If $b \ne 0$ then $\mathcal{S}_b$ is not a vector space.
+\end{theorem}
+
+\begin{proposition}{2.3.1}
+    Any solution of $y' + ay = 0$ is in the form $f(x) = z e^{-A(x)}$, where $A$ is a primitive of $a$ and $z \in \C$.
+    Unique solution is $f(x) = y_0 e^{A(x_0) - A(x)}$
+\end{proposition}
+
+To solve the inhomogeneous equation $y' + ay = b$, the prev solution is used.
+Using \textit{Variation of the constant} we replace $z$ with $z(x)$ and then
+$y' + ay = b \Leftrightarrow z'(x) = b(x)\ e^{A(x)}$ and $f_0(x) = C(x) e^{-A(x)}$, where
+$C(x)$ is a primitive of $z'(x)$.
+
+\subsection{Constant coefficients}
+\begin{definition}
+    Let $a_0, ..., a_{k-1} \in \C$. Linear differentian equation $y^{(k)} + a_{k-1}y^{(k-1)} + ... + a_1y' + a_0y = b$.
+    Homogeneous solution is in the form $f(x) = e^{\alpha x},\ \alpha \in \C$. We have $f^{(j)}(x) = \alpha^j e^{\alpha x}$ for all $j \ge 0$ and $x$.
+
+    Conclusion: $f(x)$ is a solution iff $P(\alpha) = 0$, where $P(X) = X^k + a_{k-1}X^{k-1} + ... + a_1X + a_0$.
+
+    This polynomial of degree $k$ has $k$ roots (counted with multiplicity). There exist complex numbers $\alpha_1, ..., \alpha_k$
+    such that $P(X) = (X - \alpha_1)...(X - \alpha_k)$. This is the \textit{companion} or \textit{characteristic polynomial} of the
+    homogeneous diff. equation.
+\end{definition}
+
+\begin{itemize}
+    \item No multiple roots
+          When $\alpha_i \ne \alpha_j$ for all $i, j$.
+
+          Solution of the homogeneous equation ($b = 0$): form $f(x) = z_1 e^{\alpha_1 x} + ... + z_k e^{\alpha_k x}$.
+          Unique solution with $f(x_0) = y_0,\ ...,\ f^{(k-1)}(x_0) = y_{k-1}$ can be obtained by viewing $z_i$ as unknowns. Substitute $x = x_0$ in
+          the formula for $f$ and solve for $z_1, ..., z_k$ (linear system).
+
+    \item Multiple roots
+          Assume $\alpha$ is a multiple root of order $j$ of the polynomial $P$, with $2 \le j \le k$. Then
+          \[ f_{\alpha,0}(x) = e^{\alpha x},\ f_{\alpha,1}(x) = x e^{\alpha x},\ ...,\ f_{\alpha,j-1}(x) = x^{j-1} e^{\alpha x} \]
+          are linearly independent and are solutions of the h.l.d.e.
+
+          \begin{example}
+              Suppose $P(X) = X(X - 4)^3(X - (1+i))(X - (1 - i))$, then the solutions are
+              $f_0(x) = 1$ (sol. for $X=0$), $f_1(x) = e^{4x}$, $f_2(x) = xe^{4x}$, $f_3(x) = x^2 e^{4x}$,
+              $f_4(x) = e^{(1+i) x}$, $f_5(x) = e^{(1-i) x}$
+          \end{example}
+
+\end{itemize}
+
+Now the inhomogeneous equation ($b \ne 0$):
+
+Should avoid variation of the constants. Can use special cases:
+\begin{enumerate}
+    \item $b(x) = x^d e^{\beta x}$ for some integer $d =ge 0$ and an item $\beta$ which is NOT a root of $P$, then
+          the solution is of the form $f(x) = Q(x) e^{\beta x}$, where $Q$ is a polynomial of degree $d$.
+    \item $b(x) = x^d \cos(\beta x)$ or $b(x) = x^d \sin(\beta x)$ for some integer $d \ge 0$ and $\beta$ is NOT a root of $P$, then
+          one can transform it to a combination of complex exponentials or look for a solution of the form
+          $f(x) = Q_1(x) \cos(\beta x) + Q_2(x) \sin(\beta x)$, $Q_1, Q_2$ have degree $d$.
+    \item $b(x)$ is in the form of the previous two but IS a root of multiplicity $j$, then one looks for $f(x) = Q(x) e^{\beta x} $,
+          with $Q$ of degree $q + j$.
+    \item Special case $\beta = 0$ of the previous 3 ($b$ polynomial of degree $d \ge 0$): if $0$ is NOT a root, look for a
+          solution $f$ (polynomial) of deg $d$, or degree $d + j$ if $0$ IS a root, where $j$ is the multiplicity of $0$.
+\end{enumerate}
+
+\subsection{Variation of the constants for degree ge 2}
+
+Does not require the coefficients to be constants, but it makes it easier.
+
+Inhomogeneous equation \[ y^{(k)} + a_{k-1} y^{(k - 1)} + ... + a_1 y' + a_0 y = b \]
+Solutions $f_1, ..., f_k$ for the homogeneous equations must be found first.
+
+We then search for a solution of the form $f(x) = z_1(x) f_1(x) + ... + z_k(x) f_k(x)$, such that we have (for all $x$):
+\[
+    \begin{cases}
+        z_1'(x) f_1(x) + ... + z_k'(x) f_k(x) = 0   \\
+        z_1'(x) f_1'(x) + ... + z_k'(x) f_k'(x) = 0 \\
+        ...                                         \\
+        z_1'(x) f_1^{(k-2)}(x) + ... + z_k'(x) f_k^{(k-2)}(x) = 0
+    \end{cases}
+\]
+
+\begin{example}
+    Case $k = 2$: Write again $f = z_1 f_1 + z_2 f_2$ and the constraint $z_1' f_1 + z_2' f_2 = 0$.
+\end{example}

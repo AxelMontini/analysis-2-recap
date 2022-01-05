@@ -44,6 +44,7 @@
 
 \newcustomtheorem{theorem}{Theorem}
 \newcustomtheorem{example}{Example}
+\newcustomtheorem{remark}{Remark}
 
 \newcustomtheorem{corollary}{Corollary}
 \newcustomtheorem{proposition}{Proposition}
@@ -372,6 +373,131 @@ We then search for a solution of the form $f(x) = z_1(x) f_1(x) + ... + z_k(x) f
         \item Otherwise, the function $f$ does not have a local extremum at $x_0$, equivalently it has a saddle point at $x_0$.
     \end{enumerate}
 \end{corollary}
+
+\subsection{Lagrange multipliers}
+
+\begin{proposition}{3.9.2 (Lagrange Multiplier)}
+    Let $X \subset \R^n$ be open and $f,g: X \mapsto \R$ be class $C^1$.
+    If $x_0 \in X$ is a local extremum of $f$ restricted to the set
+    $Y = \left\{ x \in X \mid g(x) = 0 \right\}$ ($\nabla f(x_0)$ can be non-zero!),
+    then either $\nabla g(x_0) = 0$ or there exist $\lambda$ such that
+    \[ \begin{cases}
+            \nabla f(x_0) = \lambda \nabla g(x_0) \\
+            g(x_0) = 0
+        \end{cases} \]
+
+    In other words, $(x_0, \lambda)$ is a critical point of $h(x, \lambda) = f(x) - \lambda g(x)$.
+
+    Value $\lambda$ is the Lagrange Multiplier at $x_0$.
+\end{proposition}
+
+\subsection{The inverse and implicit functions theorems}
+
+\begin{definition}{3.10.1 (Change of variable)}
+
+\end{definition}
+
+\begin{theorem}{3.10.2 (Inverse function theorem)}
+    $X \subset \R^n$ open and $f: X \mapsto \R^n$ differentiable.
+    If the jacobian matrix of $f$ at $x_0 \in X$ is invertible ($det(J_f(x_0)) \ne 0$) then $f$ is a change of variable around $x_0$.
+
+    Moreover, $J_g(f(x_0)) = J_f(x_0)^{-1}$.
+
+    In addition, if $f$ is of class $C^k$, then $g$ is also of class $C^k$.
+\end{theorem}
+
+\begin{theorem}{3.10.4 (Implicit function theorem)}
+    Let $X \subset \R^{n + 1}$ be open, $g: X \mapsto \R$ be of class $C^k$ with $k \ge 1$. Let $(x_0, y_0) \in \R^n \times \R$
+    such that $g(x_0, y_0) = 0$.
+
+    Assume that $\partial_y g(x_0, y_0) \ne 0$.
+
+    Then there exists an open set $U \subset \R^n$ containing $x_0$, an open interval $I \subset \R$ containing $y_0$, and a function
+    $f: u \mapsto \R$ of class $C^k$ such that the system of equations
+    \[ \begin{cases}
+            g(x,y) = 0 \\
+            x \in U,\ y \in I
+        \end{cases} \]
+    is equivalent with $y = f(x)$. In particular, $f(x_0) = y_0$. Moreover, the gradient of $f$ at $x_0$ is
+    \[ \nabla f(x_0) = - \frac{1}{(\partial_y g)(x_0, y_0)} \nabla_x g(x_0, y_0) \]
+    where $\nabla_x g = (\partial_{x_1} g, ..., \partial_{x_n} g)$
+\end{theorem}
+
+\section[Integration in multiple dimensions]{Integration in $\R^n$}
+\subsection{Line integrals}
+\begin{definition}{4.1.1}
+    Uses scalar product in $\R^n$.
+
+    \begin{enumerate}
+        \item Let $I = [a,b]$ be a closed and bounded interval in $\R$. Let $f(t) = (f_1(t), f_2(t), ..., f_n(t))$
+              be continuous ($f_i$ is continuous). Then we define
+              \[ \int_a^b f(t) dt = \left( \int_a^b f_1(t) dt, ..., \int_a^b f_n(t) dt \right) \]
+        \item A \textbf{parametrized curve} in $\R^n$ is a continuous map $\gamma: [a,b] \mapsto \R^n$ that is piecewise $C^1$, i.e,
+              there's $k \ge 1$ and a partition
+              \[ a = t_0 < t_1 < ... < t_{k-1} < t_k = b \]
+              such that the restriction of $f$ to $]t_{j-1}, t_j[$ is $C^1$ for $1 \le j \le k$. Then we say that $\gamma$ is a parametrized
+              curve, or \textit{path}x, between $\gamma(a)$ and $\gamma(b)$.
+        \item Let $gamma: [a,b] \mapsto \R^n$ be a parametrized curve. Let $X \subset \R^n$ be a subset containing the image of $\gamma$.
+              Let $g: X \mapsto \R^n$ be a continuous function. Then the integral
+              \[ \int_a^b g(\gamma(t))\gamma'(t) dt\ \in \R \]
+              is called the \textbf{line integral} of $g$ along $\gamma$. Denoted
+              \[ \int_\gamma g(s)\cdot ds \quad \mbox{or} \quad \int_\gamma g(s) \cdot d\vec{s}\]
+    \end{enumerate}
+\end{definition}
+
+When working with line integrals, we say that $f: X \mapsto \R^n$ is a \textbf{vector field}.
+
+\begin{proposition}{idk}
+    This integral  of continuous functions $I \mapsto \R^n$ (one variable) satisfies
+    \[ \int_a^b (f(t) + g(t))dt = \int_a^b f(t) dt + \int_a^b g(t)dt \]
+    and
+    \[ \int_a^b f(t)dt = - \int_b^a f(t)dt \]
+\end{proposition}
+
+\begin{definition}{4.1.4}
+    Let $gamma: [a,b] \mapsto \R^n$ be a parametrized curve. An \textbf{oriented reparametrization} of $\gamma$ is
+    a parametrized curve $\sigma: [c,d] \mapsto \R^n$ such that $\sigma = \gamma \circ \varphi$, differentiable on $]a,b[$, strictly
+    increasing and satisfies $\varphi(a) = c, \varphi(b) = d$, where $\varphi: [c,d] \mapsto [a,b]$ is a continuous map.
+\end{definition}
+
+\begin{proposition}{4.1.5}
+    Let $\gamma$ be a parametrized curve in $\R^n$, $\sigma$ an oriented reparametrization of $\gamma$.
+    Let $X$ be a set containing the image of $\gamma$ (or, equivalently, the image of $\sigma$),
+    and $f: X \mapsto \R^n$ a continuous function.
+
+    Then the line integrals are the same:
+    \[ \int_\gamma f(s) \cdot d \vec{s} = \int_\sigma f(s) \cdot d \vec{s} \]
+\end{proposition}
+
+\begin{definition}{4.1.8}
+    Let $X \subset \R^n$ and $f: X \mapsto \R^n$ a continuous vector field.
+
+    If for any $x_1, x_2 \in X$ the line integral is independent of the choice of $\gamma$ in $X$ from $x_1$ to $x_2$,
+    then we say that the vector field is \textbf{conservative}.
+\end{definition}
+
+\begin{remark}{4.1.9}
+    Equivalently, $f$ is conservative iff
+    \[ \int_\gamma f(s) \cdot d\vec{s} = 0 \]
+    for any \textbf{closed} parametrized curve $\gamma$ in $X$.
+    A curve is closed if $\gamma(a) = \gamma(b)$.
+\end{remark}
+
+\begin{theorem}{Hidden in the page (gratient vector conservative)}
+    If $X$ is open, then any vector field of the form $f = \nabla g$, where $g$ is of class $C^1$ on $X$, is conservative.
+\end{theorem}
+
+\begin{theorem}{4.1.10}
+    Let $X$ be open and $f$ a conservative vector field.
+    Then there exist a $C^1$ function $g$ on $X$ such that $f = \nabla g$.
+
+    If any two points on $X$ can be joined by a parametrized curve, then $g$ is unique up to addition of a constant:
+    if $\nabla g_1 = f$, then $g - g_1$ is constant on $X$.
+\end{theorem}
+
+\begin{remark}{4.1.11}
+    
+\end{remark}
 
 \section{Limit Cheat Sheet}
 % Math column

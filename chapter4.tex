@@ -81,7 +81,7 @@ When working with line integrals, we say that $f: X \mapsto \R^n$ is a \textbf{v
 \end{remark}
 
 \begin{proposition}{4.1.13}
-    Let $X \subset \R^n$ be an open set, $f: X \mapsto \R^n$ a vector field of class $C^1$. Write 
+    Let $X \subset \R^n$ be an open set, $f: X \mapsto \R^n$ a vector field of class $C^1$. Write
     \[ f(x) = (f_1(x), ..., f_n(x)) \]
     If $f$ is conservative, then we have, for any integers with $1 \le i \ne j \le n$:
     \[ \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i} \]
@@ -114,13 +114,292 @@ When working with line integrals, we say that $f: X \mapsto \R^n$ is a \textbf{v
     Let $X \subset \R^3$ be an open set and $f: X \mapsto \R^3$ a $C^1$ vector field.
     Then the curl of $f$, $curl(f)$, is the continuous vector field on $X$
     \[ curl(f) = \begin{pmatrix}
-        \partial_y f_3 - \partial_z f_2 \\
-        \partial_z f_1 - \partial_x f_3 \\
-        \partial_x f_2 - \partial_y f_1
-    \end{pmatrix} \]
+            \partial_y f_3 - \partial_z f_2 \\
+            \partial_z f_1 - \partial_x f_3 \\
+            \partial_x f_2 - \partial_y f_1
+        \end{pmatrix} \]
     Where $f(x,y,z) = (f_1(x,y,z), f_2(x,y,z), f_3(x,y,z))$
 
     If $curl(f) = 0$, \textbf{then condition \eqref{eq:frac-partial-conservative} holds!}
 \end{definition}
 
+\begin{remark}{4.1.21 (remember the definition with determinant)}
+    With $(e_1, e_2, e_3)$ being the canonical basis of $\R^3$ and expanding
+    with $\partial_x \cdot f_i = f_i \partial_x = \partial_x f_i$:
+    \[
+        curl(f) = \begin{vmatrix}
+            e_1        & e_2        & e_3        \\
+            \partial_x & \partial_y & \partial_z \\
+            f_1        & f_2        & f_3
+        \end{vmatrix}
+    \]
+\end{remark}
+
 \subsection{The Riemann integral in $\R^n$}
+
+For any bounded closed $X \subset \R^n$ and continuous function $f: X \mapsto \R$,
+one can define \textit{the integral of $f$ over $X$}, denoted
+\[ \int_X f(x) dx \quad \in \R\]
+
+The integral satisfies the properties:
+\begin{enumerate}
+    \item \textbf{(Compatibility)} if $n = 1$ and $X = [a,b]$ is an interval ($a \le b$),
+          then the integral of $f$ over $X$ is the Riemann integral of $f$:
+          \[ \int_{[a,b]} f(x)dx = \int_a^b f(x)dx \]
+    \item \textbf{(Linearity)} if $f,g$ are continuous on $X$ and $a,b \in \R$, then
+          \[ \int_X (a f_1(x) + b f_2(x))dx = a \int_X f_1(x)dx + b \int_X f_2(x)dx \]
+    \item \textbf{(Positivity)} if $f \le g$, then
+          \[ \int_X f(x) dx \le \int_X g(x)dx \]
+          and especially, if $f \ge 0$, then
+          \[ \int_X f(x)dx \ge 0 \]
+          Moreover, if $Y \subset X$ is compact and $f \ge 0$, then
+          \[ \int_Y f(x)dx \le \int_X f(x)dx \]
+    \item \textbf{(Upper bound and triangle inequality)} Since $-|f| \le f \le |f|$,
+          we have
+          \[ \Big| \int_X f(x)dx \Big| \le \int_X \Big| f(x) \Big| dx\]
+          and since $|f + g| \le |f| + |g|$
+          \[ \Big| \int_X (f(x) + g(x)) dx \Big| \le \int_X \Big| f(x)\Big|dx + \int_X \Big| g(x) \Big| dx\]
+    \item \textbf{(Volume)} if $f = 1$, then the integral of $f$ is the \textit{"volume"} in $\R^n$ of the set $X$. If
+          $f \ge 0$ in general, the integral of $f$ is the volume of the set
+          \[ \left\{ (x,y) \in X \times \R \mid 0 \le y \le f(x) \right\} \subset \R^{n+1} \]
+
+          In particular, if $X$ is a bounded "rectangle", say
+          \[ X = [a_1,b_1] \times ... \times [a_n, b_n] \subset \R^n \]
+          and $f = 1$, then
+          \[ \int_X dx = (b_n - a_n) \cdot \dots \cdot (b_1 - a_1) \]
+          We write $Vol(X)$ or $Vol_n(X)$ for the volume of $X$.
+
+    \item \textbf{(Multiple Integral, or Fubini's Theorem)} If $n_1, n_2 \ge 1$ are integers such that
+          $n = n_1 + n_2$, then for $x_1 \in \R^{n_1}$, let
+          \[ Y_{x_1} = \left\{ x_2 \in \R^{n_2} \mid (x_1, x_2) \in X \right\} \subset \R^{n_2} \]
+          Let $X_1$ be the set of $x_1$ such that $Y_{x_1}$ is not empty. Then $X_1$ is compact in $\R^{n_1}$
+          and $Y_{x_1}$ is compact in $\R^{n^2}$ for all $x_1 \in X_1$. If the function
+          \[ g(x_1) = \int_{Y_{x_1}} f(x_1, x_2)dx_2 \]
+          on $X_1$ is continuous, then
+          \[ \int_X f(x_1, x_2)dx = \int_{X_1} g(x_1)dx_1 = \int_{X_1} \left( \int_{Y_{x_1}} f(x_1, x_2)dx_2 \right) dx_1\]
+          Similarly, exchanging the role of $x_1$ and $x_2$, we have
+          \[ \int_X f(x_1, x_2)dx = \int_{X_2} \left( \int_{Z_{x_2}} f(x_1, x_2)dx_1 \right) dx_2 \]
+          Where $Z_{x_2} = \left\{ x_1 \mid (x_1, x_2) \in X \right\}$, if the integral over $x_1$ is a continuous function.
+
+    \item \textbf{(Domain additivity)} if $X_1$ and $X_2$ are compact subsets of $\R^n$ and $f$ is continuous on $X_1 \cup X_2$, then
+          \[ \int_{X_1 \cup X_2} f(x)dx + \int_{X_1 \cap X_2} f(x)dx = \int_{X_1} f(x) dx + \int_{X_2} f(x)dx \]
+
+          Notice that $X_1 \cap X_2$ is also compact, so all integrals exist.
+          If $X_1 \cap X_2$ is empty, then the integral over it is equal to $0$,
+          shortening the formula to a more convenient form.
+          This is also true if the intersection is \textbf{negligible} (Def \ref{def:4.2.3}).
+\end{enumerate}
+
+\begin{definition}{4.2.3}
+    \label{def:4.2.3}
+    \begin{enumerate}
+        \item Let $1 \le m \le n$. A \textbf{parametrized m-set} in $\R^n$ is a contiuous map
+              \[ f: [a_1, b_1] \times ... \times [a_m, b_m] \mapsto \R^n \]
+              which is $C^1$ on
+              \[ ]a_1, b_1[ \times ... \times ]a_m, b_m[ \]
+        \item A subset $B \subset \R^n$ is \textbf{negligible} if there exist an integer $k \ge 0$ and parametrized
+              $m_i$-sets $f_i: X_i \mapsto \R^n$ with $1 \le n \le k$ and $m_i < n$ such that
+              \[ X \subset f_1(X_1) \cup ... \cup f_k(X_k) \]
+    \end{enumerate}
+\end{definition}
+
+\begin{example}{4.2.4}
+    Any subset of the real axis $\R \times \{0\}$ is negligible in $\R^2$.
+
+    More generally, if $H \subset \R^n$ is an affine subspace of dimension $m < n$, then any subset of $\R^n$ that is contained in $H$ is negligible.
+\end{example}
+
+\begin{proposition}{4.2.5}
+    Let $X \subset \R^n$ be a compact set. Assume that $X$ is negligible.
+    Then for any continuous function on $X$ we have
+    \[ \int_X f(x)dx = 0 \]
+\end{proposition}
+
+% //TODO: Jordan-measurable subsets and, in general, REMARK 4.2.7?
+
+\subsection{Improper integrals}
+Some basic definitions on $\R^2$.
+
+Let $I \subset \R$ be a bounded interval, $J = [a, +\infty[$ for some $a \in \R$.
+Let $f$ be a continuous function on $X = J \times I$.
+We say that $f$ is \textbf{Riemann-integrable} on $X$ if the following limit exists
+\[ \lim_{x \to +\infty} \int_{[a,x] \times I} f(x,y) dx dy = \lim_{x \to +\infty} \int_I \left( \int_a^x f(x,y)dx \right)dy \]
+The equality is a case of Fubini's Theorem.
+We denote this limit with
+\[ \int_{J \times I} f(x,y) dx dy \]
+
+
+Similarly, let $f$ be continuous on $\R^2$. Assume that $f \ge 0$. We say that $f$ is Riemann-integrable on
+$\R^2$ if the following limit exists
+\[ \lim_{R \to +\infty} \int_{[-R, R]^2} f(x,y)dxdy \]
+This limit is called the \textbf{integral of $f$ over $\R^2$} and denoted
+\[ \int_{\R^2} f(x, y)dxdy \]
+Fubini formula for this:
+\[ \int_{\R^2} f(x,y)dxdy = \int_{-\infty}^{+\infty} \left( \int_{-\infty}^{+\infty} f(x,y)dx \right) dy \]
+
+\begin{remark}{4.3.1}
+    In all these cases we also often say that "the integral converges"
+    to indicate that a function is Riemann-integrable on an unbounded set.
+
+    If $|f| \le g$ and the integral of $g$ is Riemann-integrable on an unbounded set, then $f$ also
+    does.
+\end{remark}
+
+\subsection{The change of variable formula}
+
+Analogue of the one for one-variable calculus
+\[ \left( \int f(g(x))g'(x)dx = \int f(y) dy \right) \]
+
+Let $\bar{X}, \bar{Y} \subset \R^n$ be compact subsets. Let $\varphi: \bar{X} \mapsto \bar{Y}$ be a continuous map.
+
+We assume that we can write $\bar{X} = X \cup B$ and $\bar{Y} = Y \cup C$ where
+\begin{itemize}
+    \item the sets $X,Y$ are open.
+    \item The sets $B,C$ are negligible (Def \ref:{def:4.2.3})
+    \item the restriction of $\varphi$ to the open set $X$ is a $C^1$ bijective map from $X$ to $Y$.
+\end{itemize}
+
+Then $J_\varphi(x)$ is invertible at all $x \in X$.
+We assume that we can find a continuous function on $\bar{X}$ that restricts to $\det(J_\varphi(x))$ on $X$ (we have a formula for the Jacobian,
+so this is obvious in most cases). Abuse notation and write it even if $x \in B$.
+
+\begin{remark}{4.4.1}
+    There is no assumption concerning the image of $B$.
+
+    Sometimes $\varphi$ is the restriction of a $C^1$ map $\R^n \mapsto \R^n$, in which case the last issue doesn't require any argument.
+\end{remark}
+
+\begin{theorem}{4.4.2 (Change of variable formula)}
+    \label{thm:4.4.2}
+    In the situation described above, for any continuous function $f$ on $\bar{Y}$, we have
+    \[ \int_{\bar{X}} f(\varphi(x))|\det(J_\varphi(x))|dx = \int_{\bar Y} f(y)dy \]
+\end{theorem}
+
+To remember, when $y = \varphi(x)$, then $dy = |\det(J_\varphi(x))|dx$.
+
+Special cases:
+\begin{enumerate}
+    \item When $\varphi(x) = x + x_0$ (translation): $\varphi$ is affine-linear and $J_\varphi(x) = 1_n$ (identity matrix). The
+          change of variable formula becomes, for any compact subset $\bar X$ and any continuous function $f$ on $x_0 + \bar X$:
+          \[ \int_{\bar X} f(x + x_0)dx = \int_{x_0 + \bar X} f(x) dx \]
+
+    \item When $\varphi$ is a restriction of a bijective linear map, namely $\varphi(x) = Ax$, where $A$ is an invertible matrix of size $n$.
+          Then $J_\varphi(x) = A$ for all $x \in \R^n$ with constant determinant $\det(A)$.
+          Let $\bar X = X \cup B$ be compact as above and $\bar Y = \varphi(\bar X)$. Then $\varphi(\bar X) = \varphi(X) \cup \varphi(B)$.
+          The change of variable formula becomes (for any continuous $f$ on $\bar Y$)
+          \[ \int_{\bar X} f(\varphi(x))dx = \frac{1}{|\det(A)|} \int_{\bar Y} f(y)dy \]
+\end{enumerate}
+
+\begin{example}{(Standard examples)}
+    \begin{enumerate}
+        \item \textbf{Polar coordinates} $(r, \theta)$ are useful for integrating over a disc in $\R^2$ centered
+              at $0$, or more generally over a disk sector $\delta = \delta(a,b,R)$ defined
+              \[ 0 \le r \le R, \quad -\pi < a \le \theta \le b < \pi\]
+              We compute the Jacobian det. and obtain
+              \[ \int_\delta f(x,y) dx dy = \int_0^R \int_a^b f(r \cos \theta, r \sin \theta)r\ dr\ d\theta \]
+        \item \textbf{Spherical Coordinates} $(r, \theta, \varphi)$ in $\R^3$, integrate on balls centered at $0$.
+              Jacobian determinant is $-r^2 \sin(\varphi)$. To integrate a function $f$ over a ball of radius $R$ we use
+              \[ \int_B f(x,y,z) dx dy dz = \int_0^R \int_0^{2\pi} \int_0^\pi f(\bar x, \bar y, \bar z) r^2 \sin(\varphi)\ dr\ d\theta\ d\varphi \]
+              With $\bar x = r \cos(\theta) \sin(\varphi)$, $\bar y = r \sin(\theta) \sin(\varphi)$, $\bar z = r \cos(\varphi)$.
+    \end{enumerate}
+\end{example}
+
+\subsection{Geometric applications of integrals}
+
+Welp, applications that can actually be useful
+
+\begin{enumerate}
+    \item \textbf{(Center of mass)} Let $X$ be a compact subset of $\R^n$ of positive volume. The \textit{center of mass} (or \textit{barycenter}) of
+    $X$ is the point $\bar x \in \R^n$ such that $\bar x = (\bar x_1, ..., \bar x_n)$ with
+    \[ \bar x_1 = \frac{1}{Vol{X}} \int_X x_i dx \]
+    Intuitively, $x_i$ is the average over $X$ of the $i$-th coordinate and $\bar x$ is the point where $X$ is "perfectly balanced" (could be outside of $X$!).
+
+    \item \textbf{(Surface area)} Consider a function $f: [a,b] \times [c,d] \mapsto \R$ which is $C^1$ on the open interval. Let
+    \[ \Gamma = \left\{ (x,y,z) \in \R^3 \mid (x,y) \in [a,b] \times [c,d],\ z = f(x,y) \right\} \subset \R^3 \]
+    be the graph of $f$. Intuitively, this is a surface and it has area
+    \[ \int_a^b \int_c^d \sqrt{1 + (\partial_x f(x,y))^2 + (\partial_y f(x,y))^2}dxdy \]
+
+    Analogue for a function $f: [a,b] \mapsto \R$ (\textbf{length}):
+    \[ \int_a^b \sqrt{1 + f'(x)^2}dx \]
+\end{enumerate}
+
+
+\subsection{The Green formula}
+
+\begin{definition}{4.6.1}
+    A \textbf{simple closed parametrized curve} $\gamma: [a,b] \mapsto \R^2$ is a closed ($\gamma(a) = \gamma(b)$) parametrized
+    curve such that $\gamma(t) \ne \gamma(s)$ unless $t = s$ or they are $a,b$, and such
+    that $\gamma'(t) \ne 0$ for $a < t < b$ (if $\gamma$ is only piecewise $C^1$, this condition only applies where $\gamma'(t)$ exists).
+\end{definition}
+
+\begin{theorem}{4.6.3 (Green's formula)}
+    Let $X \subset \R^2$ be a compact set with a boundary $\partial X$ that is the union of finitely many simple closed
+    parametrized curves $\gamma_1, ..., \gamma_k$. Assume that
+    \[ \gamma_i: [a_i, b_i] \mapsto \R^2 \]
+    has the property that $X$ lies always "to the left" of the tangent vector $\gamma'(t)$ based at $\gamma_i(t)$.
+
+    Let $f = (f_1, f_2)$ be a vector field of class $C^1$ defined on some open set containing X. Then we have
+    \[ \int_X \left( \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y} \right)dxdy = \sum_{i=1}^k \int_{\gamma_i} f \cdot d\vec{s} \]
+
+    If the orientation is not met, the curve can be "reversed", e.g., replaced with $\tilde \gamma = \gamma(1 - t)$, which
+    reverses the orientation of the tangent vector.
+\end{theorem}
+
+\begin{corollary}{4.6.5}
+    Let $X \subset \R^2$ compact set with boundary $\partial X$ that is the union of finitely many s.c.p.c $\gamma_1, ..., \gamma_k$.
+    Assume that 
+    \[ \gamma_i = (\gamma_{i,1}, \gamma_{i,2}): [a_i, b_i] \mapsto \R^2 \]
+    has the property that $X$ always lies "left" of the tangent vector. Then we have
+    \[ Vol(X) = \sum_{i=1}^k \int_{\gamma_i} x \cdot d \vec{s} = \sum_{i=1}^k \int_{a_i}^{b_i} \gamma_{i,1}(t) \gamma_{i,2}'(t)dt \]
+\end{corollary}
+
+\subsection{The Gauss-Ostrogradski formula}
+
+Analogue of the Green formula in $\R^3$.
+
+\begin{definition}{4.7.1}
+    A parametrized surface $\Sigma: [a,b] \times [c,d] \mapsto \R^3$ is a 2-set in $\R^3$ such that the rank
+    of the J. matrix is $2$ at all $(s,t) \in ]a,b[ \times ]c,d[$
+
+    Note that 2 is the max rank (there are two variables).
+\end{definition}
+
+\begin{definition}{4.7.3 (vector product)}
+    Let $x,y$ be two linearly independent vectors in $\R^3$.
+    The vector product (or cross product) $z = x \times y$ is the unique vector such that $(x,y,z)$ is a basis of $\R^3$ ($z$ perpendicular
+    to the plane generated by $x,y$, also pairwise lin. indep.) with $\det(x,y,z) \ge 0$ and
+    \[ \Vert z \Vert = \Vert x \Vert \cdot \Vert y \Vert \cdot \sin(\theta) \]
+    Where $\theta = \angle(x,y)$
+
+    If $x,y$ are not lin. indep., then we define $x \times y = 0$, the zero vector.
+\end{definition}
+
+Ez formula for \textit{canonical base only (remember the oral exam back in the day!)}:
+\[
+    x \times y = \begin{pmatrix}
+        x_2y_3 - x_3y_2\\
+        x_3y_1 - x_1 y_3\\
+        x_1 y_2 - x_2 y_1
+\end{pmatrix}
+=
+\det \begin{vmatrix}
+    e_1 & e_2 & e_3\\
+    x_1 & x_2 & x_3 \\
+    y_1 & y_2 & y_3
+\end{vmatrix}
+\]
+
+Also $y \times x = -x \times y$.
+
+\begin{theorem}{4.7.6 (Gauss-Ostrogradski formula)}
+    Let $X \subset \R^3$ be a compact set with a boundary $\partial X$ that is a parametrized surface $\Sigma: [a,b] \times [c,d] \mapsto \R^3$.
+
+    Assume that $\Sigma$ is injective in the open interval, and that the normal vector of $\Sigma$ points away from the surface at all points.
+
+    Let $\vec u = \frac{\vec n}{\Vert \vec n \Vert }$ be the unit exterior normal vector.
+
+    Let $f = (f_1, f_2, f_3)$ be a $C^1$ vector field defined on some open set containing $X$. Then we have
+    \[ \int_X div(f) dx dy dz = \int_\Sigma (f \cdot \vec u) d\sigma \]
+
+    Clarify: $\div(f)$ is the divergence of the vector field $f$, $div(f) = \partial_x f + \partial_y f + \partial_z f$.
+\end{theorem}

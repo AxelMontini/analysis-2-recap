@@ -7,6 +7,14 @@
 \usepackage{amssymb}
 \usepackage[margin=0.5cm]{geometry}
 \usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={Analysis 2 Recap},
+    pdfpagemode=FullScreen
+}
 \setlength {\marginparwidth }{2cm}
 \usepackage{todonotes}
 \usepackage{xstring}
@@ -50,6 +58,10 @@
 \newcustomtheorem{proposition}{Proposition}
 
 \newcommand{\seq}[1]{\left( #1_n \right)_{n \ge 1}}
+
+% Color equation number as link
+\definecolor{EQblue}{rgb}{1, 0, 0}
+\renewcommand\theequation{{\colorbox{yellow}{\color{EQblue}\arabic{equation}}}}
 
 % Read branchname and commit id from HEAD, to be added to the document
 \CatchFileDef{\headfull}{.git/HEAD}{}

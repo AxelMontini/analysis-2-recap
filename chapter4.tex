@@ -70,5 +70,57 @@ When working with line integrals, we say that $f: X \mapsto \R^n$ is a \textbf{v
 \end{theorem}
 
 \begin{remark}{4.1.11}
-    
+    To say that Any two points of $X$ can be joined by a parametrized curve means that,
+    for all $x,y \in X$, there exist a p.c. $\gamma: [a,b] \mapsto X$ such that $\gamma(a) = x, \gamma(b) = y$.
+    When this is true, we say that $X$ is \textbf{path-connected}.
+
+    (it is true whenever $X$ is \textbf{convex})
+
+    If $f$ is a conservative vector field on $X$, then a function $g$ such that $\nabla g = f$ is called a \textbf{potential} for $f$.
+    Note that $g$ is not unique and can differ of at least a constant.
 \end{remark}
+
+\begin{proposition}{4.1.13}
+    Let $X \subset \R^n$ be an open set, $f: X \mapsto \R^n$ a vector field of class $C^1$. Write 
+    \[ f(x) = (f_1(x), ..., f_n(x)) \]
+    If $f$ is conservative, then we have, for any integers with $1 \le i \ne j \le n$:
+    \[ \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i} \]
+\end{proposition}
+
+\begin{example}{4.1.14}
+    Consider $f(x,y,z) = (y^2, xz, 1)$.
+    Clearly, $\partial_y (y^2) = 2y \ne z = \partial_x (xz)$
+    Then $f$ can't be conservative.
+\end{example}
+
+\begin{definition}{4.1.15}
+    A subset $X \subset \R^n$ is \textbf{star shaped} if there exists $x_0 \in X$ so
+    that for all $x \in X$, the line connecting the two is contained in $X$.
+
+    Then $X$ is star-shaped around $x_0$.
+\end{definition}
+
+\begin{theorem}{4.1.17}
+    Let $X \subset \R^n$ be star shaped and $f$ be a $C^1$ vector field such that on $X$, for any $1 \le i \ne j \le n$:
+    \begin{equation}
+        \label{eq:frac-partial-conservative}
+        \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i}
+    \end{equation}
+
+    Then $f$ is \textbf{conservative}
+\end{theorem}
+
+\begin{definition}{4.1.20}
+    Let $X \subset \R^3$ be an open set and $f: X \mapsto \R^3$ a $C^1$ vector field.
+    Then the curl of $f$, $curl(f)$, is the continuous vector field on $X$
+    \[ curl(f) = \begin{pmatrix}
+        \partial_y f_3 - \partial_z f_2 \\
+        \partial_z f_1 - \partial_x f_3 \\
+        \partial_x f_2 - \partial_y f_1
+    \end{pmatrix} \]
+    Where $f(x,y,z) = (f_1(x,y,z), f_2(x,y,z), f_3(x,y,z))$
+
+    If $curl(f) = 0$, \textbf{then condition \eqref{eq:frac-partial-conservative} holds!}
+\end{definition}
+
+\subsection{The Riemann integral in $\R^n$}

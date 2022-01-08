@@ -137,6 +137,34 @@
     \[ \mathit{H}_f(x) = \mathrm{Hess}_f(x) = (\partial_{x_i, x_j}f)_{1 \le i, j \le n} \]
 \end{definition}
 
+\begin{definition}{(Second partial derivative test)}
+    Using the Hessian matrix and its determinant, one can find critical points of a function and
+    (most of the times) determine whether it's a min/max or a saddle point.
+
+    Define $D(a, b) = \det(H_f(a,b))$.
+
+\begin{itemize}
+    \item \textbf{Two dimensions}: to find all critical points one looks for solutions of $f_x(a,b) = f_y(a,b) = 0$
+    and then characterizes them as follows:
+    \begin{enumerate}
+        \item If $D(a,b) > 0$ and $f_{XX}(a,b) > 0$ then $(a,b)$ is a local minimum of $f$.
+        \item If $D(a,b) > 0$ and $f_{XX}(a,b) < 0$ then $(a,b)$ is a local maximum.
+        \item If $D(a,b) < 0$ then $(a,b)$ is a saddle point.
+        \item If $D(a,b) = 0$ then the test is inconclusive.
+    \end{enumerate}
+    
+    \item \textbf{Multiple variables}: one must look at the eigenvalues of the Hessian matrix at $(a,b)$.
+    \begin{enumerate}
+        \item If all eigenvalues are positive, then it's a local minimum.
+        \item If all eigenvalues are negative, then it's a maximum.
+        \item If there's both positive and negative eigenvalues, then it's a saddle point.
+        \item Otherwise, the test is inconclusive.
+    \end{enumerate}
+\end{itemize}
+    
+    
+\end{definition}
+
 \begin{example}{(Change of variable)}
     Idea: create $h$, which is $f$ on a different coordinate system.
 

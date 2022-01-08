@@ -85,6 +85,12 @@
     \[ J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)\ \mbox{(matrix product)}\]
 \end{proposition}
 
+\begin{proposition}{(Chain Rule case)}
+    For the form $f(g_1(x), ..., g_k(x))$, the chain rule is
+    \[ \frac{d}{dx}f(g_1(x), ..., g_k(x)) = \sum_{i=1}^k \left( \frac{d}{dx}g_i(x) \right) D_if(g_1(x), ..., g_k(x)) \]
+    Where $D_i f$ is the derivative of $f$ with respect to the $i$-th argument and $D_i f(z)$ is the value of
+    this derivative at $z$.
+\end{proposition}
 
 \begin{definition}
     Let $X \subset \R^n$ be open and $f: X \mapsto \R^m$ differentiable.

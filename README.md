@@ -3,7 +3,7 @@
 [![CI](https://github.com/AxelMontini/analysis-2-recap/actions/workflows/latex.yml/badge.svg)](https://github.com/AxelMontini/analysis-2-recap/actions/workflows/latex.yml)
 
 This is my Analysis 2 recap for the third Computer Science semester.
-This year the exam is in English (finally!)
+This year the exam is in English (finally!) (Edit: it wasn't, fml)
 
 ## PDF File
 
